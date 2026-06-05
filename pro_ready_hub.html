@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Ready Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c1220;--surface:#141c2e;--surface2:#1a2438;--border:rgba(255,255,255,0.08);--text:#c8d0e0;--bright:#eef2fc;--mid:#6a7a9a;--blue:#3a7bc8;--blue2:#5a9ee8;--bronze:#c49a3a;--silver:#8fa0b8;--gold:#d4b020;--plat:#4ab0c8;--diamond:#5090e0;--elite:#9060d0;--champ:#d07030;--unreal:#d4a820;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;}
+.hdr{background:#0a0f1c;border-bottom:1px solid var(--border);padding:14px 24px;position:sticky;top:0;z-index:100;}
+.brand{font-family:'Exo 2',sans-serif;font-weight:900;font-size:22px;color:white;letter-spacing:-0.5px;}
+.brand span{color:var(--blue2);}
+.brand-sub{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mid);}
+.tabs{display:flex;overflow-x:auto;background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;gap:2px;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:12px 18px;border:none;background:none;cursor:pointer;font-family:'Exo 2',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--mid);border-bottom:3px solid transparent;white-space:nowrap;}
+.tab:hover{color:var(--bright);}
+.tab.on{color:white;}
+.tab.on.ta{border-color:var(--blue);color:var(--blue2);}
+.tab.on.tb{border-color:var(--bronze);color:var(--bronze);}
+.tab.on.ts{border-color:var(--silver);color:var(--silver);}
+.tab.on.tg{border-color:var(--gold);color:var(--gold);}
+.tab.on.tp{border-color:var(--plat);color:var(--plat);}
+.tab.on.td{border-color:var(--diamond);color:var(--diamond);}
+.tab.on.te{border-color:var(--elite);color:var(--elite);}
+.tab.on.tc{border-color:var(--champ);color:var(--champ);}
+.tab.on.tu{border-color:var(--unreal);color:var(--unreal);}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px;}
+.page{display:none;}
+.page.on{display:block;}
+.tier-hdr{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.badge{width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Exo 2',sans-serif;font-weight:900;font-size:20px;border-radius:4px;}
+.ttl{font-family:'Exo 2',sans-serif;font-weight:900;font-size:28px;color:white;line-height:1;}
+.tag{font-size:13px;font-style:italic;color:var(--mid);margin-top:3px;}
+.slabel{font-family:'Exo 2',sans-serif;font-weight:800;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--mid);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.clist{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:8px;}
+.clist li{display:flex;align-items:flex-start;gap:10px;background:var(--surface);padding:10px 14px;border-left:3px solid transparent;font-size:14px;line-height:1.5;}
+.clist li strong{color:var(--bright);}
+.dot{flex-shrink:0;margin-top:7px;width:6px;height:6px;border-radius:50%;}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:28px;}
+.vcard{background:var(--surface);overflow:hidden;}
+.vcard iframe{width:100%;aspect-ratio:16/9;border:none;display:block;}
+.vlabel{padding:8px 12px;font-family:'Exo 2',sans-serif;font-weight:700;font-size:11px;color:var(--mid);}
+.mbox{background:var(--surface);border:1px solid var(--border);border-left:3px solid;padding:14px 16px;margin-bottom:16px;}
+.mtitle{font-family:'Exo 2',sans-serif;font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.mlist{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.mlist li{display:flex;align-items:flex-start;gap:8px;font-size:13px;}
+.mlist li::before{content:'→';flex-shrink:0;opacity:0.4;margin-top:1px;}
+.ai{background:var(--surface);border-left:3px solid var(--blue);padding:16px 18px;margin-bottom:24px;font-size:14px;}
+.ai p+p{margin-top:8px;}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+@media(max-width:600px){.agrid,.vgrid{grid-template-columns:1fr;}}
+.acat{background:var(--surface);padding:14px;}
+.aname{font-family:'Exo 2',sans-serif;font-weight:800;font-size:13px;color:white;margin-bottom:3px;}
+.adesc{font-size:11px;color:var(--mid);margin-bottom:10px;line-height:1.4;}
+.rrow{display:flex;gap:4px;}
+.rb{flex:1;padding:5px 2px;border:1px solid var(--border);background:var(--surface2);color:var(--mid);font-family:'Exo 2',sans-serif;font-weight:700;font-size:11px;cursor:pointer;text-align:center;border-radius:2px;}
+.rb:hover{border-color:var(--blue);color:var(--bright);}
+.rb.sel{background:var(--blue);border-color:var(--blue);color:white;}
+.acts{display:flex;gap:12px;margin-bottom:28px;align-items:center;}
+.bp{background:var(--blue);color:white;border:none;padding:12px 24px;font-family:'Exo 2',sans-serif;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.bp:hover{background:var(--blue2);}
+.bs{background:transparent;color:var(--mid);border:1px solid var(--border);padding:12px 24px;font-family:'Exo 2',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.savemsg{font-size:12px;color:#60c060;font-family:'Exo 2',sans-serif;font-weight:700;letter-spacing:0.5px;display:none;}
+.hempty{background:var(--surface);padding:20px;text-align:center;color:var(--mid);font-size:13px;}
+.hentry{background:var(--surface);margin-bottom:10px;overflow:hidden;}
+.hhdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;}
+.hdate{font-family:'Exo 2',sans-serif;font-weight:700;font-size:12px;color:var(--mid);}
+.htotal{font-family:'Exo 2',sans-serif;font-weight:900;font-size:18px;color:var(--blue2);}
+.htotal span{font-size:12px;color:var(--mid);font-weight:600;}
+.hscores{display:none;padding:12px 14px;grid-template-columns:repeat(4,1fr);gap:8px;}
+.scat{font-size:10px;color:var(--mid);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;}
+.sval{font-family:'Exo 2',sans-serif;font-weight:900;font-size:18px;color:var(--bright);}
+.sval span{font-size:11px;color:var(--mid);font-weight:600;}
+.cmp{font-size:11px;color:#60c060;font-weight:700;}
+.cmp.dn{color:#e06060;}
+.cmp.eq{color:var(--mid);}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="brand">PRO <span>READY</span></div>
+  <div class="brand-sub">Training Hub</div>
+</div>
+<div class="tabs">
+  <button class="tab ta on" onclick="show('a')">⚡ Self-Assessment</button>
+  <button class="tab tb" onclick="show('b')">Bronze</button>
+  <button class="tab ts" onclick="show('s')">Silver</button>
+  <button class="tab tg" onclick="show('g')">Gold</button>
+  <button class="tab tp" onclick="show('p')">Platinum</button>
+  <button class="tab td" onclick="show('d')">Diamond</button>
+  <button class="tab te" onclick="show('e')">Elite</button>
+  <button class="tab tc" onclick="show('c')">Champion</button>
+  <button class="tab tu" onclick="show('u')">Unreal</button>
+</div>
+<div class="wrap">
+
+<!-- ASSESSMENT -->
+<div id="pa" class="page on">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(58,123,200,0.15);border:1.5px solid var(--blue);color:var(--blue2);font-size:22px;">⚡</div>
+    <div><div class="ttl">Self-Assessment</div><div class="tag">Rate yourself honestly. Retake at every tier.</div></div>
+  </div>
+  <div class="ai">
+    <p>This only works if you're honest. Rate what you <em>consistently</em> do — not what you can do sometimes. A 10 means professional level. The goal isn't a high score today. It's watching your scores grow over time.</p>
+    <p>Save your assessment after completing each tier. Click any saved assessment to compare scores.</p>
+  </div>
+  <div class="slabel">Rate Each Category — Click a Number (1 = Just Starting, 10 = Pro Level)</div>
+  <div class="agrid" id="ag"></div>
+  <div class="acts">
+    <button class="bp" onclick="saveA()">Save Assessment</button>
+    <button class="bs" onclick="clearA()">Start Over</button>
+    <div class="savemsg" id="sm">✓ Saved!</div>
+  </div>
+  <div class="slabel" style="margin-top:8px;">Assessment History</div>
+  <div id="hc"><div class="hempty">No saved assessments yet.</div></div>
+</div>
+
+<!-- BRONZE -->
+<div id="pb" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(196,154,58,0.1);border:1.5px solid var(--bronze);color:var(--bronze);">B</div>
+    <div><div class="ttl" style="color:var(--bronze)">Bronze</div><div class="tag">"You know the game. Now learn the profession."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--bronze)"><div class="dot" style="background:var(--bronze)"></div><span><strong>FPS (Frames Per Second)</strong> — how many images your computer generates each second. Higher FPS = smoother. 60fps is comfortable. 144fps is the competitive standard.</span></li>
+    <li style="border-left-color:var(--bronze)"><div class="dot" style="background:var(--bronze)"></div><span><strong>Ping</strong> — the round-trip time from your device to the game server in milliseconds. Lower is better. Under 50ms is good. Over 100ms you'll feel the delay.</span></li>
+    <li style="border-left-color:var(--bronze)"><div class="dot" style="background:var(--bronze)"></div><span><strong>Refresh Rate (Hz)</strong> — how many times per second your monitor updates. A 60Hz monitor only shows 60fps max, even if your computer generates 300fps. Pros use 144Hz+.</span></li>
+    <li style="border-left-color:var(--bronze)"><div class="dot" style="background:var(--bronze)"></div><span><strong>Match analysis isn't blame</strong> — every game tells you something. Find the turning point. Understand why it happened. That's the habit that separates players who improve from players who grind.</span></li>
+    <li style="border-left-color:var(--bronze)"><div class="dot" style="background:var(--bronze)"></div><span><strong>Rate your floor, not your ceiling</strong> — on the self-assessment, rate what you consistently do, not what you can sometimes pull off.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/aowuBUIX4Wk" allowfullscreen loading="lazy"></iframe><div class="vlabel">What Is Ping? — Techquickie</div></div>
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/Mbx1z62uecw" allowfullscreen loading="lazy"></iframe><div class="vlabel">Why Ping Matters for Gaming — Gameranx</div></div>
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/m_6Aztlq4yM" allowfullscreen loading="lazy"></iframe><div class="vlabel">Ping Explained Visually</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--bronze)">
+    <div class="mtitle" style="color:var(--bronze)">Bronze Milestones</div>
+    <ul class="mlist"><li>Complete your first Self-Assessment</li><li>Set up Game Analyst Notebook — complete 4 Match Analysis entries</li><li>Define FPS, ping, latency, and refresh rate in your own words</li><li>Identify your strongest and weakest assessment categories</li></ul>
+  </div>
+</div>
+
+<!-- SILVER -->
+<div id="ps" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(143,160,184,0.1);border:1.5px solid var(--silver);color:var(--silver);">S</div>
+    <div><div class="ttl" style="color:var(--silver)">Silver</div><div class="tag">"Good players play. Pro players study."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--silver)"><div class="dot" style="background:var(--silver)"></div><span><strong>Watching vs. studying</strong> — watching for entertainment means noticing cool moments. Studying means asking WHY they made each decision. Same video, completely different result.</span></li>
+    <li style="border-left-color:var(--silver)"><div class="dot" style="background:var(--silver)"></div><span><strong>Stats are data, not judgment</strong> — 8 sessions of stat tracking shows patterns one game never can. Your notebook is a data collection tool, not a report card.</span></li>
+    <li style="border-left-color:var(--silver)"><div class="dot" style="background:var(--silver)"></div><span><strong>GPU vs CPU for gaming</strong> — the GPU renders every frame you see. The CPU handles game logic. For high FPS gaming, the GPU is typically the most important component.</span></li>
+    <li style="border-left-color:var(--silver)"><div class="dot" style="background:var(--silver)"></div><span><strong>Win rate formula</strong> — wins ÷ total games × 100. Track it weekly. Improvement only becomes visible over time.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/Q1eqhg5RGtk" allowfullscreen loading="lazy"></iframe><div class="vlabel">Gaming PC Parts Explained (2025)</div></div>
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/YGuxNYfQs3w" allowfullscreen loading="lazy"></iframe><div class="vlabel">Beginner's Guide to PC Components</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--silver)">
+    <div class="mtitle" style="color:var(--silver)">Silver Milestones</div>
+    <ul class="mlist"><li>Complete 8 Match Analysis pages</li><li>Complete 2 Pro Player Study pages</li><li>Start Dream Build Sheet — research at least 4 components</li><li>Follow Pro Habits consistently for 2 weeks</li></ul>
+  </div>
+</div>
+
+<!-- GOLD -->
+<div id="pg" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(212,176,32,0.1);border:1.5px solid var(--gold);color:var(--gold);">G</div>
+    <div><div class="ttl" style="color:var(--gold)">Gold</div><div class="tag">"You're building habits that last."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--gold)"><div class="dot" style="background:var(--gold)"></div><span><strong>The World Cup numbers</strong> — 40+ million players entered qualifying for the 2019 Fortnite World Cup. 100 made the final. Bugha was 16. He won $3 million. Understanding those odds is part of understanding the path.</span></li>
+    <li style="border-left-color:var(--gold)"><div class="dot" style="background:var(--gold)"></div><span><strong>Trend vs. noise</strong> — one bad week proves nothing. Three bad weeks in a row is a pattern worth fixing. Your 4-week stat tracker is designed to reveal trends, not judge individual sessions.</span></li>
+    <li style="border-left-color:var(--gold)"><div class="dot" style="background:var(--gold)"></div><span><strong>Ethernet reduces ping</strong> — a wired connection is faster and more consistent than WiFi. A Switch ethernet adapter is a small, inexpensive change that makes a real difference.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/--_lvrwXtt8" allowfullscreen loading="lazy"></iframe><div class="vlabel">Bugha — Stories from the Battle Bus (Official Fortnite Doc)</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--gold)">
+    <div class="mtitle" style="color:var(--gold)">Gold Milestones ⚡ Valhalla Session Unlocked</div>
+    <ul class="mlist"><li>Complete a full 4-week Stat Tracker</li><li>Research the Fortnite World Cup — who won, prize, how many entered qualifying</li><li>Calculate your win rate across all 4 weeks</li><li>⚡ Schedule your Valhalla training session</li></ul>
+  </div>
+</div>
+
+<!-- PLATINUM -->
+<div id="pp" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(74,176,200,0.1);border:1.5px solid var(--plat);color:var(--plat);">P</div>
+    <div><div class="ttl" style="color:var(--plat)">Platinum</div><div class="tag">"You know the game. Now know the industry."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--plat)"><div class="dot" style="background:var(--plat)"></div><span><strong>Esports orgs work like sports teams</strong> — they sign players, pay salaries, handle sponsorships. Sentinels, TSM, 100 Thieves are organizations. Bugha played for Sentinels.</span></li>
+    <li style="border-left-color:var(--plat)"><div class="dot" style="background:var(--plat)"></div><span><strong>College esports scholarships are real</strong> — 200+ US colleges have varsity esports programs with scholarships. The academic and gaming pipelines aren't separate — they're connected.</span></li>
+    <li style="border-left-color:var(--plat)"><div class="dot" style="background:var(--plat)"></div><span><strong>Tournament bracket formats</strong> — single elimination (one loss = out), double elimination (need two losses), round robin (everyone plays everyone). Understanding formats is competitive IQ.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/wELlRj063vw" allowfullscreen loading="lazy"></iframe><div class="vlabel">Esports 101 — A Beginner's Guide</div></div>
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/box4SFtGvA0" allowfullscreen loading="lazy"></iframe><div class="vlabel">Inside the Training of Professional Esports Players</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--plat)">
+    <div class="mtitle" style="color:var(--plat)">Platinum Milestones</div>
+    <ul class="mlist"><li>Write profiles of 2 pro players</li><li>Research the esports pipeline — how do players actually go pro?</li><li>Explain how a tournament bracket works — draw an example</li><li>Follow Pro Habits consistently for 4 consecutive weeks</li></ul>
+  </div>
+</div>
+
+<!-- DIAMOND -->
+<div id="pd" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(80,144,224,0.1);border:1.5px solid var(--diamond);color:var(--diamond);">D</div>
+    <div><div class="ttl" style="color:var(--diamond)">Diamond</div><div class="tag">"This is where casual players drop off."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--diamond)"><div class="dot" style="background:var(--diamond)"></div><span><strong>Trend analysis</strong> — a trend requires at least 3 data points. One good week is noise. Three good weeks in a row is signal. Look for patterns across your full seasonal data.</span></li>
+    <li style="border-left-color:var(--diamond)"><div class="dot" style="background:var(--diamond)"></div><span><strong>A development plan ≠ a wishlist</strong> — a plan describes <em>how</em> you get there: current gaps, what you're working on, what you'll do between now and competitive eligibility at 13.</span></li>
+    <li style="border-left-color:var(--diamond)"><div class="dot" style="background:var(--diamond)"></div><span><strong>Dream Build = a research project</strong> — knowing why you chose each component and what it does separates a player who understands their setup from one who just wants hardware.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/PsqulPtiR3g" allowfullscreen loading="lazy"></iframe><div class="vlabel">PC Parts Explained — How to Build a PC (2025)</div></div>
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/VHhAZx4EvM8" allowfullscreen loading="lazy"></iframe><div class="vlabel">Every Computer Component in 14 Minutes</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--diamond)">
+    <div class="mtitle" style="color:var(--diamond)">Diamond Milestones ⚡ Valhalla Membership Unlocked</div>
+    <ul class="mlist"><li>Complete seasonal stat tracking with written trend analysis</li><li>Complete the full Dream Build Sheet with total budget</li><li>Draft your Pro Gamer Development Plan</li><li>⚡ Choose a Valhalla membership level</li></ul>
+  </div>
+</div>
+
+<!-- ELITE -->
+<div id="pe" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(144,96,208,0.1);border:1.5px solid var(--elite);color:var(--elite);">E</div>
+    <div><div class="ttl" style="color:var(--elite)">Elite</div><div class="tag">"You've proven you're not just playing. You're preparing."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--elite)"><div class="dot" style="background:var(--elite)"></div><span><strong>Watching yourself is harder than watching pros</strong> — a pro's replay shows what's possible. Your own shows what you're actually doing. Look for patterns in your decisions, not just how you died.</span></li>
+    <li style="border-left-color:var(--elite)"><div class="dot" style="background:var(--elite)"></div><span><strong>The camp only counts if you used what you learned</strong> — applying coaching to 8 documented sessions is what turns an experience into improvement.</span></li>
+    <li style="border-left-color:var(--elite)"><div class="dot" style="background:var(--elite)"></div><span><strong>Retake the self-assessment</strong> — compare Bronze scores to Elite scores. Where did you grow? Where are you still working? That gap is your development map.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/N9bF8JfMcBA" allowfullscreen loading="lazy"></iframe><div class="vlabel">Casually Explained: Esports</div></div>
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/qo3eR-e4lj0" allowfullscreen loading="lazy"></iframe><div class="vlabel">Esports for Dummies — Why It Matters</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--elite)">
+    <div class="mtitle" style="color:var(--elite)">Elite Milestones</div>
+    <ul class="mlist"><li>8 match analyses referencing what camp coaches taught you</li><li>Research 3 colleges with varsity esports programs or scholarships</li><li>Watch and analyze one of your own replays like a Pro Player Study</li><li>Retake the Self-Assessment and compare to Bronze scores</li></ul>
+  </div>
+</div>
+
+<!-- CHAMPION -->
+<div id="pc" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(208,112,48,0.1);border:1.5px solid var(--champ);color:var(--champ);">C</div>
+    <div><div class="ttl" style="color:var(--champ)">Champion</div><div class="tag">"Champions are made before the match starts."</div></div>
+  </div>
+  <div class="slabel">Key Concepts</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--champ)"><div class="dot" style="background:var(--champ)"></div><span><strong>6 weeks of consistent habits is the hardest milestone</strong> — not because the habits are hard, but because sustaining them over time is genuinely difficult. That's exactly why it's here.</span></li>
+    <li style="border-left-color:var(--champ)"><div class="dot" style="background:var(--champ)"></div><span><strong>Hardware mastery = you can explain it without looking it up</strong> — if someone asks what a GPU is and why it matters for FPS, you can answer clearly. That's the standard. Not memorized specs — genuine understanding.</span></li>
+    <li style="border-left-color:var(--champ)"><div class="dot" style="background:var(--champ)"></div><span><strong>Consistent Valhalla play means documented improvement</strong> — not just going. Your notebook should show how your experience on competitive hardware has developed since Gold.</span></li>
+  </ul>
+  <div class="slabel">Watch These</div>
+  <div class="vgrid">
+    <div class="vcard"><iframe src="https://www.youtube-nocookie.com/embed/box4SFtGvA0" allowfullscreen loading="lazy"></iframe><div class="vlabel">Esports: Inside Professional Gaming Training</div></div>
+  </div>
+  <div class="mbox" style="border-left-color:var(--champ)">
+    <div class="mtitle" style="color:var(--champ)">Champion Milestones</div>
+    <ul class="mlist"><li>Write your complete Pro Gamer Development Plan (2 pages minimum)</li><li>Present your Dream Build — explain every component out loud</li><li>Maintain Pro Habits for 6 consecutive weeks</li><li>Show consistent Valhalla training with documented improvement</li></ul>
+  </div>
+</div>
+
+<!-- UNREAL -->
+<div id="pu" class="page">
+  <div class="tier-hdr">
+    <div class="badge" style="background:rgba(212,168,32,0.12);border:1.5px solid var(--unreal);color:var(--unreal);font-size:24px;">⚡</div>
+    <div><div class="ttl" style="color:var(--unreal)">Unreal</div><div class="tag">"This isn't just about the computer. It's about the player you've become to get here."</div></div>
+  </div>
+  <div style="background:var(--surface);border:1.5px solid var(--unreal);padding:24px 20px;margin-bottom:24px;text-align:center;">
+    <div style="font-family:'Exo 2',sans-serif;font-weight:900;font-size:28px;color:var(--unreal);margin-bottom:8px;">🎮 Gaming PC — Unlocked</div>
+    <div style="font-size:14px;color:var(--mid);max-width:480px;margin:0 auto;line-height:1.6;">You completed every tier. Every milestone. Every habit. The computer is the tool that comes next. Now the real training begins.</div>
+  </div>
+  <div class="slabel">Where You've Been</div>
+  <ul class="clist">
+    <li style="border-left-color:var(--unreal)"><div class="dot" style="background:var(--unreal)"></div><span>You started at Bronze not knowing what ping was. You finish at Unreal with a development plan, a dream build, seasonal stats, and documented habits.</span></li>
+    <li style="border-left-color:var(--unreal)"><div class="dot" style="background:var(--unreal)"></div><span>The gap between your first self-assessment and your Elite retake is your proof. Not someone else's judgment — your own data.</span></li>
+    <li style="border-left-color:var(--unreal)"><div class="dot" style="background:var(--unreal)"></div><span>Competitive eligibility at 13 is the next milestone. The work continues.</span></li>
+  </ul>
+  <div class="mbox" style="border-left-color:var(--unreal)">
+    <div class="mtitle" style="color:var(--unreal)">Final Milestone</div>
+    <ul class="mlist"><li>All previous tier milestones verified and approved</li><li>Gaming PC earned</li></ul>
+  </div>
+</div>
+
+</div><!-- end wrap -->
+<script>
+const CATS=[{id:'mech',n:'Mechanical Skill',d:'Aim, building, editing, movement'},{id:'sense',n:'Game Sense',d:'Positioning, rotations, reading opponents'},{id:'mental',n:'Mental Game',d:'Staying focused, not tilting, consistency'},{id:'strat',n:'Strategy & Meta',d:'Meta knowledge, patch awareness, pro strategies'},{id:'hw',n:'Hardware & Tech',d:'FPS, ping, refresh rate, PC components'},{id:'habits',n:'Performance Habits',d:'Sleep, nutrition, warm-up routines'},{id:'analysis',n:'Content & Analysis',d:'Can you explain your decisions? Review replays?'},{id:'team',n:'Teamwork & Comms',d:'Callouts, adapting for team play'}];
+let R={};
+function show(id){
+  const m={a:'pa',b:'pb',s:'ps',g:'pg',p:'pp',d:'pd',e:'pe',c:'pc',u:'pu'};
+  const t={a:'ta',b:'tb',s:'ts',g:'tg',p:'tp',d:'td',e:'te',c:'tc',u:'tu'};
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.getElementById(m[id]).classList.add('on');
+  document.querySelector('.tab.'+t[id]).classList.add('on');
+}
+function buildGrid(){
+  const g=document.getElementById('ag');
+  g.innerHTML='';
+  CATS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='acat';
+    d.innerHTML=`<div class="aname">${c.n}</div><div class="adesc">${c.d}</div><div class="rrow">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="rb" onclick="sr('${c.id}',${n})" id="r${c.id}${n}">${n}</button>`).join('')}</div>`;
+    g.appendChild(d);
+  });
+}
+function sr(cat,val){
+  R[cat]=val;
+  const row=document.querySelector(`#r${cat}1`).parentNode;
+  row.querySelectorAll('.rb').forEach((b,i)=>b.classList.toggle('sel',(i+1)===val));
+}
+function clearA(){R={};document.querySelectorAll('.rb').forEach(b=>b.classList.remove('sel'));}
+function saveA(){
+  if(Object.keys(R).length<8){alert('Please rate all 8 categories first.');return;}
+  const total=Object.values(R).reduce((a,b)=>a+b,0);
+  const entry={date:new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}),ts:Date.now(),scores:{...R},total};
+  const list=JSON.parse(localStorage.getItem('pra')||'[]');
+  list.unshift(entry);
+  localStorage.setItem('pra',JSON.stringify(list));
+  const m=document.getElementById('sm');
+  m.style.display='block';
+  setTimeout(()=>m.style.display='none',2500);
+  clearA();
+  renderH();
+}
+function renderH(){
+  const data=JSON.parse(localStorage.getItem('pra')||'[]');
+  const c=document.getElementById('hc');
+  if(!data.length){c.innerHTML='<div class="hempty">No saved assessments yet. Complete your first one above.</div>';return;}
+  c.innerHTML='';
+  data.forEach((e,i)=>{
+    const prev=data[i+1];
+    const scH=CATS.map(cat=>{
+      const v=e.scores[cat.id]||0;
+      const pv=prev?(prev.scores[cat.id]||0):null;
+      let cH='';
+      if(pv!==null){const df=v-pv;const cl=df>0?'cmp':df<0?'cmp dn':'cmp eq';const ar=df>0?`▲ +${df}`:df<0?`▼ ${df}`:'— same';cH=`<div class="${cl}">${ar}</div>`;}
+      return `<div><div class="scat">${cat.n.split(' ')[0]}</div><div class="sval">${v}<span>/10</span></div>${cH}</div>`;
+    }).join('');
+    const d=document.createElement('div');
+    d.className='hentry';
+    d.innerHTML=`<div class="hhdr" onclick="this.nextSibling.style.display=this.nextSibling.style.display==='grid'?'none':'grid'"><div><div class="hdate">${e.date}</div><div style="font-size:10px;color:var(--mid);margin-top:2px;">${prev?'Click to compare':'First assessment'}</div></div><div class="htotal">${e.total}<span> / 80</span></div></div><div class="hscores" style="display:none;grid-template-columns:repeat(4,1fr);">${scH}</div>`;
+    c.appendChild(d);
+  });
+}
+buildGrid();renderH();
+</script>
+</body>
+</html>
